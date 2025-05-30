@@ -1,0 +1,58 @@
+@startuml
+skinparam componentStyle rectangle
+title Event Management System - Component Diagram (No Node.js Gateway)
+
+package "React Frontend" {
+    component "React App" as ReactApp
+    ReactApp : Renders LoginPage, AdminEventCreatePage, EventTypePage, etc.
+    ReactApp : Stores JWT in Storage
+    ReactApp : Attaches JWT to requests
+}
+
+package "Flask Backend" {
+    component "Flask App (app.py)" as FlaskApp
+    FlaskApp : Loads configuration (including SECRET_KEY)
+    FlaskApp : Sets up JWTManager
+    FlaskApp : Registers Blueprints
+
+    component "Blueprints" as Blueprints
+    Blueprints : auth_bp
+    Blueprints : event_type_bp
+    Blueprints : event_info_bp
+    Blueprints : participants_bp
+    Blueprints : admin_bp
+
+    component "Services" as Services
+    Services : AuthService
+    Services : EventService
+    Services : LocationService
+    Services : ParticipantService
+    Services : AdminService
+
+    component "Database Layer" as DBLayer
+    DBLayer : run_query()
+    DBLayer : get_db_connection()
+    DBLayer : Connection Pool
+    DBLayer : Mock Data Toggle (USE_MOCK_DATA)
+}
+
+FlaskApp --|> Blueprints : registers
+Blueprints --> Services : calls business logic
+Services --> DBLayer : queries/updates
+
+database "MySQL Database" as MySQL {
+  [admin]
+  [event_type]
+  [events]
+  [branch]
+  [location]
+  [participants]
+  [token_blacklist]
+}
+
+DBLayer --> MySQL : Executes SQL (SELECT/INSERT/UPDATE)
+
+ReactApp --> FlaskApp : HTTPS (JSON/REST)\nAuthorization: Bearer <JWT>
+FlaskApp --> DBLayer : run_query()
+
+@enduml

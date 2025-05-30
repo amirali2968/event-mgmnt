@@ -1,0 +1,39 @@
+@startuml
+title Event Management System - Updated Component Diagram (No Node.js Gateway)
+
+package "React Frontend" {
+  [React App] as ReactApp
+  [LoginPage Component]
+  [EventTypePage Component]
+}
+
+package "Flask Backend" {
+  [Flask App] as FlaskApp
+  [Routes] as Routes
+  [Services] as Services
+  [Auth Service] as AuthService
+  [Event Service] as EventService
+}
+
+package "MySQL Database" {
+  [event_type Table]
+  [events Table]
+  [participants Table]
+  [location Table]
+  [branch Table]
+  [admin Table]
+}
+
+ReactApp --> FlaskApp : Sends API requests with JWT
+ReactApp --> ReactApp : Handles UI and routing
+
+FlaskApp --> Routes : Handles HTTP routes
+Routes --> Services : Business logic
+Services --> AuthService : Authentication logic
+Services --> EventService : Event management logic
+Services --> MySQL Database : Queries and updates
+
+AuthService --> MySQL Database : User and admin data
+EventService --> MySQL Database : Event, participant, location data
+
+@enduml

@@ -1,7 +1,7 @@
 USE event_mgmt;
 
 
--- --------------------------------------------------------------------------------------------------------
+-- ;----------------------
 
 CREATE TABLE `event_type` (
   `type_id` int(10) NOT NULL,
@@ -21,7 +21,7 @@ INSERT INTO `event_type` (`type_id`, `type_title`) VALUES
 (4, 'Sports'),
 (5, 'Trivia');
 
--- -----------------------------------------------------------------------------------------------------
+-- ;-------------------
 
 CREATE TABLE `location`(
   `location_id` int(10) NOT NULL,
@@ -42,7 +42,7 @@ INSERT INTO `location` (`location_name`) VALUES
 ('Academic Complex'),
 ('Cognizant Lab');
 
--- ------------------------------------------------------------------------------------------------------------
+-- ;--------------------------
 
 
 CREATE TABLE `branch`(
@@ -68,7 +68,6 @@ INSERT INTO `branch` (`branch_name`) VALUES
 ('Metallurgy'),
 ('Production');
 
--- ----------------------------------------------------------------------------------------------------------
 
 CREATE TABLE `events` (
   `event_id` int(100) NOT NULL,
@@ -110,7 +109,6 @@ INSERT INTO `events` (`event_id`, `event_title`, `event_price`, `participants`, 
 (6, 'Spandan', 50, 1, 3,1,'2022-11-03');
 
 
--- ---------------------------------------------------------------------------------------
 
 
 CREATE TABLE `participants` (
@@ -139,7 +137,6 @@ ALTER TABLE `participants`
 
 
 
--- -----------------------------------------------------------------------------
 
 
 
@@ -152,5 +149,3 @@ CREATE TABLE `admin`(
 INSERT INTO `admin` VALUES
 ('Admin1','password1'),
 ('Admin2','password2');
-
-----------------------------------------------------------------------------------

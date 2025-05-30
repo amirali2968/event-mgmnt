@@ -1,0 +1,20 @@
+@startuml
+title Event Management System - Deployment Diagram with Docker Instances
+
+node "Host Machine" {
+  
+  folder "Docker Environment" {
+    
+    component "MySQL Database Container" as MySQLContainer
+    component "WebApp Container" as WebAppContainer
+    
+  }
+  
+}
+
+MySQLContainer : Runs MySQL Database
+WebAppContainer : Runs Flask Backend and React Frontend
+
+WebAppContainer --> MySQLContainer : Database Queries
+
+@enduml
